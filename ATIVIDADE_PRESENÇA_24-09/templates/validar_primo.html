@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href="{{url_for('static', filename='css/validar-primos.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="form-nprimos" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-top form-nprimos" style="height: 396px;">
+            <header class="w3-container w3-theme-l1" style="padding-top: 10px; padding-bottom: 10px;">
+                <h4>
+                    <div id="fechar" onClick="document.getElementById('form-nprimos').style.display ='none'">
+                        X
+                    </div>
+                </h4>
+            </header>
+            <div class="w3-padding">
+                <form id="form_verificar" action="/verificar/" method="POST">
+                    <p class="mensagem">{{mensagem}}</p>
+                    <input type="number" name="numero" id="numero" autocomplete="off" placeholder="Dígite um número" required><br>
+                    <button type="button" id="verificar" class=""><i class="fa fa-check-circle-o"></i>
+                        VERIFICAR</button>
+                    <p class="mensagem">{{retorno}}</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script>
+        var verificar = document.getElementById("verificar");
+        verificar.onclick = function () { validar_dados() };
+        function validar_dados() {
+            var numero = document.getElementById("numero").value;
+            if (numero == "") {
+                swal("Atenção!", "É necessário inserir um número e clicar no botão VERIFICAR.", "warning");
+            }
+            else if (numero == 0 || numero == 1) {
+                swal("Atenção!", "Digite um número maior que 1.", "warning");
+            }
+            else {
+                document.getElementById("form_verificar").submit();
+            }
+        }
+    </script>
+</body>
+
+</html>
